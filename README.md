@@ -1,18 +1,20 @@
 
-# Books API - CRUD de Livros com busca e paginação
+# Teste técnico - CRUD de Livros com busca e paginação
 
 ---
 
 ## Sobre o Projeto
 
-Este projeto consiste em um microserviço para gerenciamento de livros, desenvolvido em NestJS com banco de dados PostgreSQL e o ORM TypeORM. O sistema implementa as funcionalidades básicas de CRUD, busca e paginação, garantindo:
+Este projeto consiste em um frontend e um microserviço para gerenciamento de estoque de livros, sendo o backend desenvolvido em NestJS com banco de dados PostgreSQL e o TypeORM, e para o Frontend, o Vue.js com as bibliotecas Vuetify, Vue Router e Pinia para controle de estados. 
+
+O sistema implementa as funcionalidades básicas de CRUD, busca e paginação, garantindo:
 
 - **Integridade**: o campo SBN (identificador do livro) não pode ser alterado após criação;
 - **Observabilidade**: logging estruturado via Winston com possibilidade de envio para AWS CloudWatch;
-- **Testabilidade**: testes unitários e e2e com Jest e Supertest;
+- **Testabilidade**: testes unitários e e2e com Jest e Supertest no Backend e Playwright no frontEnd;
 - **Deploy facilitado**: aplicação containerizada com Docker e Docker Compose.
 
-Este microserviço foi desenvolvido como parte de um teste técnico para a **IBM**, considerando boas práticas em arquitetura, código limpo e escalabilidade.
+Este frontend + microsserviço foi desenvolvido como parte de um teste técnico para a **IBM**, considerando boas práticas em arquitetura, código limpo e escalabilidade.
 
 ---
 
@@ -30,6 +32,20 @@ Este microserviço foi desenvolvido como parte de um teste técnico para a **IBM
 ---
 
 ## Tecnologias Utilizadas
+
+
+FrontEnd
+
+| Tecnologia        | Descrição                                 |
+|-------------------|-------------------------------------------|
+| Typescript        | Superset do JS                            |
+| Vue.js            | Framework Web Reativo                     |
+| Vuetify           | UI Kit do Materialize para Vue            |
+| Vue Router        | Roteamento da aplicação WEB               |
+| Pinia             | Gerenciamento de estados                  |
+| Docker + Compose  | Containerização e orquestração            |
+
+Backend
 
 | Tecnologia        | Descrição                                 |
 |-------------------|-------------------------------------------|
@@ -52,6 +68,19 @@ Este microserviço foi desenvolvido como parte de um teste técnico para a **IBM
 - Node.js v18+ (para execução local sem Docker);
 - Conta AWS com permissões para CloudWatch (opcional).
 
+### Passos para rodar o Frontend
+
+As variaveis de exemplo estão no arquivo `.env.example` e tambem no docker-compose para a execução e testes.
+
+1. Subir os containers:
+   ```bash
+   docker-compose up --build
+   ```
+
+2. Acessar o frontend em:  
+   `http://localhost:5173`
+
+---
 ### Passos para rodar a API
 
 As variaveis de exemplo estão no arquivo `.env.example` e tambem no docker-compose para a execução e testes.
@@ -70,7 +99,15 @@ AWS_ACCESS_KEY_ID e AWS_SECRET_ACCESS_KEY devem ser configurados via IAM roles e
 
 ## Testes
 
-### Testes Unitários
+### Testes End-to-End (E2E) no Frontend
+
+Roda os testes utilizando os browsers de mercado:
+
+```bash
+npm run test:e2e
+```
+
+### Testes Unitários no Backend
 
 Roda os testes unitários do serviço:
 
@@ -115,12 +152,15 @@ O projeto está preparado para rodar com Docker Compose, incluindo os seguintes 
 
 - Banco de dados PostgreSQL;
 - Aplicação NestJS containerizada.
+- Aplicação Web com Vite + Vue
 
 ---
 
 ## Considerações Finais
 
-Este microserviço foi desenvolvido seguindo as seguintes boas práticas, levando em conta a estrutura padrão já fornecida pelo NestJS:
+O Frontend foi desenvolvido seguindo as praticas recomendadas pela equipe do Vue e como padrão de mercado, levando em conta sempre a estrutura basica de Components, Pages/Views, Store e Router. 
+
+O microserviço foi desenvolvido seguindo as seguintes boas práticas, levando em conta a estrutura padrão já fornecida pelo NestJS:
 
 - **Separação clara** entre camadas (Controller, Service, Entity);
 - **DTOs** para validação e segurança dos dados;
@@ -132,4 +172,4 @@ Este microserviço foi desenvolvido seguindo as seguintes boas práticas, levand
 ## Melhorias e observações
 
 - Implementar Terraform se o deploy for em ambiente AWS
-- Mudança de arquitetura futura para melhor estruturação do projeto se necessário
+- Mudança de arquitetura backend futura para melhor estruturação do projeto se necessário
