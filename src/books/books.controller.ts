@@ -26,7 +26,19 @@ export class BooksController {
 
   @Post()
   create(@Body() dto: CreateBookDto) {
-     this.logger.log(this.logRequest('/books', 'POST'))
+    this.logger.log(this.logRequest('/books', 'POST'))
+
+    if (!('sbn' in dto)) {
+      throw new BadRequestException('SBN é obrigatório');
+    } else {
+      if (dto.sbn === ''){
+        throw new BadRequestException('SBN não pode ser vazio');
+      }
+
+      if (dto.sbn.length < 10) {
+        throw new BadRequestException('SBN deve ter no minimo 10 caracteres');
+      }
+    }
 
     return this.service.create(dto);
   }

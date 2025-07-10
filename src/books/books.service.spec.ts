@@ -22,6 +22,7 @@ describe('BooksService', () => {
     save: jest.fn().mockResolvedValue(mockBook),
     find: jest.fn(),
     findOne: jest.fn(),
+    findAndCount: jest.fn(),
     remove: jest.fn().mockResolvedValue(mockBook),
   };
 
@@ -56,11 +57,11 @@ describe('BooksService', () => {
   describe('find all service', () => {
     it('return paginated books', async () => {
       const books = [mockBook];
-      repo.find = jest.fn().mockResolvedValue(books);
+      repo.findAndCount = jest.fn().mockResolvedValue([books, 1]);
 
       const result = await service.findAll(1, 10);
-      expect(repo.find).toHaveBeenCalledWith({ skip: 0, take: 10 });
-      expect(result).toEqual(books);
+      expect(repo.findAndCount).toHaveBeenCalledWith({ skip: 0, take: 10 });
+      expect(result.items).toEqual(books);
     });
   });
 

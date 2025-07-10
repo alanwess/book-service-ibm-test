@@ -17,11 +17,22 @@ export class BooksService {
     return this.repo.save(book);
   }
 
-  findAll(page = 1, limit = 10) {
-    return this.repo.find({
-      skip: (page - 1) * limit,
+  async findAll(page = 1, limit = 10) {
+    const skip = (page - 1) * limit;
+
+    const [items, totalItems] = await this.repo.findAndCount({
+      skip,
       take: limit,
     });
+
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return {
+      items,
+      totalItems,
+      totalPages,
+      currentPage: page,
+    };
   }
 
   search(query: string) {

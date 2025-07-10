@@ -1,8 +1,13 @@
-import { Entity, PrimaryColumn, Column } from 'typeorm';
+import { IsNotEmpty } from 'class-validator';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Book {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
+
+  @Column()
+  @IsNotEmpty()
   sbn: string;
 
   @Column()

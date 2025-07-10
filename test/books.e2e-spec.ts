@@ -57,7 +57,7 @@ describe('BooksController (e2e)', () => {
             .get('/books?page=1&limit=10')
             .expect(200)
             .then((res) => {
-                expect(Array.isArray(res.body)).toBe(true);
+                expect(Array.isArray(res.body.items)).toBe(true);
             });
     });
 
